@@ -133,3 +133,75 @@ test('unbuilt source checkouts do not initialize any user configuration', (t) =>
   assert.deepEqual(ensureBundledPets(paths, join(root, 'not-built')), { added: 0, preserved: 0, fresh: false });
   assert.equal(existsSync(paths.petDir), false);
 });
+
+function upgradeFixture(t: { after: (fn: () => void) => void }) {
+  const value = fixture(t);
+  const { source, manifest, paths } = value;
+  const name = 'claude-dafeiyu-config.json';
+  const oldAnimations = { idle: ['安静站立'], categories: [] };
+  const config = {
+    pets: [{ id: 'claude-dafeiyu', size: 444, display: 'desktop', whisperEnabled: true }],
+    notificationsEnabled: false,
+    customPreference: { position: 'my saved corner' },
+    animations: oldAnimations,
+  };
+  const nextAnimations = { ...oldAnimations, categories: [{ id: '新动作', actions: ['抱文件认真敬礼'] }] };
+  const data = Buffer.from(JSON.stringify({ ...config, animations: nextAnimations }));
+  writeFileSync(join(source, name), data);
+  const row = manifest.files.find((file) => file.source === name)! as (typeof manifest.files)[number] & {
+    previousAnimationsSha256: string[];
+  };
+  row.sha256 = createHash('sha256').update(data).digest('hex');
+  row.previousAnimationsSha256 = [createHash('sha256').update(JSON.stringify(oldAnimations)).digest('hex')];
+  writeFileSync(join(source, 'manifest.json'), JSON.stringify(manifest));
+  mkdirSync(paths.petDir, { recursive: true });
+  const path = join(paths.petDir, name);
+  const original = JSON.stringify(config);
+  writeFileSync(path, original);
+  return { ...value, path, config, original, nextAnimations, row };
+}
+
+test('known official animations upgrade once with an exact backup and unchanged preferences', (t) => {
+  const { source, paths, path, config, original, nextAnimations } = upgradeFixture(t);
+  const result = ensureBundledPets(paths, source);
+  assert.equal(result.updated, 1);
+  assert.deepEqual(JSON.parse(readFileSync(path, 'utf8')), { ...config, animations: nextAnimations });
+  const backup = readdirSync(paths.petDir).find((name) => name.endsWith('.bak'))!;
+  assert.equal(readFileSync(join(paths.petDir, backup), 'utf8'), original);
+  const after = readFileSync(path);
+  assert.equal(ensureBundledPets(paths, source).updated, undefined);
+  assert.deepEqual(readFileSync(path), after);
+  assert.equal(readdirSync(paths.petDir).filter((name) => name.endsWith('.bak')).length, 1);
+  assert.equal(existsSync(paths.userFile), false);
+});
+
+test('custom animation definitions and custom artwork remain byte-identical on upgrade', (t) => {
+  const { source, paths, path, config } = upgradeFixture(t);
+  const custom = JSON.stringify({ ...config, animations: { ...config.animations, idle: ['my custom idle'] } });
+  writeFileSync(path, custom);
+  const video = join(paths.petDir, 'claude-dafeiyu-animation', '安静站立.webm');
+  mkdirSync(join(paths.petDir, 'claude-dafeiyu-animation'));
+  writeFileSync(video, 'my custom artwork');
+  assert.equal(ensureBundledPets(paths, source).updated, undefined);
+  assert.equal(readFileSync(path, 'utf8'), custom);
+  assert.equal(readFileSync(video, 'utf8'), 'my custom artwork');
+  assert.ok(!readdirSync(paths.petDir).some((name) => name.endsWith('.bak')));
+});
+
+test('invalid upgrade rules fail before copying missing files or replacing configuration', (t) => {
+  const { source, manifest, paths, path, original, row } = upgradeFixture(t);
+  row.previousAnimationsSha256 = ['not-a-hash'];
+  writeFileSync(join(source, 'manifest.json'), JSON.stringify(manifest));
+  assert.throws(() => ensureBundledPets(paths, source), /升级规则无效/);
+  assert.equal(readFileSync(path, 'utf8'), original);
+  assert.equal(existsSync(join(paths.petDir, 'claude-dafeiyu-animation')), false);
+});
+
+test('a changed existing backup prevents replacement and leaves no temporary files', (t) => {
+  const { source, paths, path, original } = upgradeFixture(t);
+  const digest = createHash('sha256').update(original).digest('hex');
+  writeFileSync(path + '.before-bundled-' + digest + '.bak', 'user edited backup');
+  assert.equal(ensureBundledPets(paths, source).updated, undefined);
+  assert.equal(readFileSync(path, 'utf8'), original);
+  assert.ok(!readdirSync(paths.petDir).some((name) => name.endsWith('.tmp')));
+});

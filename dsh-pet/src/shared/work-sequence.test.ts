@@ -7,6 +7,24 @@ import assert from 'node:assert/strict';
 import { advanceWorkSequence as step } from './work-sequence.ts';
 const seq = { enter: 'open-laptop', loops: ['type', 'think'], exit: 'close-laptop' };
 
+test('greeting-only entry plays once and returns control to the latest work tier', () => {
+  const intro = { ...seq, introOnly: true, enterText: '收到任务，马上开始！' };
+  assert.deepEqual(step(intro, 'closed', 'thinking', 'idle'), { phase: 'opening', name: seq.enter, handled: true });
+  assert.equal(step(intro, 'opening', 'working', seq.enter).name, null);
+  assert.deepEqual(step(intro, 'opening', 'working', seq.enter, true), { phase: 'open', name: null, handled: false });
+  for (const state of ['working', 'result', 'waiting', 'thinking'])
+    assert.deepEqual(step(intro, 'open', state, 'type'), { phase: 'open', name: null, handled: false });
+  assert.deepEqual(step(intro, 'open', 'success', 'type'), { phase: 'closed', name: null, handled: false });
+  assert.equal(step(intro, 'closed', 'thinking', 'done').name, seq.enter);
+});
+
+test('greeting respects user interruption and terminal state without replay or a false celebration', () => {
+  const intro = { ...seq, introOnly: true };
+  assert.deepEqual(step(intro, 'opening', 'working', 'click', true), { phase: 'open', name: null, handled: false });
+  for (const state of [null, 'success', 'error'])
+    assert.deepEqual(step(intro, 'opening', state, seq.enter), { phase: 'closed', name: null, handled: false });
+});
+
 test('enter once; progress ticks keep the current animation; then rotate work and close', () => {
   assert.deepEqual(step(seq, 'closed', 'thinking', 'idle'), { phase: 'opening', name: seq.enter, handled: true });
   assert.deepEqual(step(seq, 'opening', 'working', seq.enter), { phase: 'opening', name: null, handled: true });

@@ -33,6 +33,18 @@ function director(a = base) {
   return new AmbientDirector(a, 0, () => 0.05);
 }
 
+test('a work greeting can be selected manually but is excluded from random standalone actions', () => {
+  const a: Animations = {
+    ...base,
+    categories: [{ id: 'greeting', weight: 1, actions: ['salute', 'dance'] }],
+    moves: { default: {}, actions: [] },
+    workSequence: { enter: 'salute', loops: ['A'], exit: 'idle', introOnly: true },
+    ambient: { ...base.ambient!, chainChance: 0, chains: [] },
+  };
+  const d = director(a);
+  assert.equal(d.tick(d.snapshot().due[0], context)?.name, 'dance');
+});
+
 test('activity starts at a clock time between idle boundaries, then returns to idle without another burst', () => {
   const d = director(),
     at = d.snapshot().due[0];

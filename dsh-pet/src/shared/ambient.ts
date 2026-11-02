@@ -111,7 +111,7 @@ export class AmbientDirector {
     }
     const singles = [
       ...new Set([...a.categories.flatMap((c) => c.actions), ...a.moves.actions.map((m) => m.name)]),
-    ].filter((n) => allowed(n) && !a.idle.includes(n) && !isEventAnim(a.events, n));
+    ].filter((n) => allowed(n) && !a.idle.includes(n) && !isEventAnim(a.events, n) && n !== a.workSequence?.enter);
     if (!singles.length) return null;
     const name = singles[Math.min(singles.length - 1, Math.floor(this.random() * singles.length))];
     return { id: 'single:' + name, label: name, weight: 1, steps: [{ name }] };

@@ -1,0 +1,233 @@
+{
+  "method": "built-in imagegen whole-character keyframes",
+  "fps": 24,
+  "drawingFps": 24,
+  "gesture": "jump first, then open arms while airborne; one cushioned landing, no dance",
+  "actions": [
+    {
+      "id": "happy",
+      "name": "跳起后张臂",
+      "source": "animation/跳起后张臂.webm",
+      "revision": 2,
+      "fps": 24,
+      "drawingFps": 24,
+      "frames": 77,
+      "durationSec": 3.2083333333333335,
+      "uniqueDrawings": 32,
+      "finishHoldSec": 1,
+      "sha256": "e907ce758ec689a70b46d30e19a7d95a0adfc519e9fa0b65988b1abda0d05275",
+      "gif": "docs/media/reference-actions/happy.gif",
+      "timeline": [
+        {
+          "sheet": "jump-takeoff",
+          "frame": 1,
+          "holdFrames": 2
+        },
+        {
+          "sheet": "jump-takeoff",
+          "frame": 2,
+          "holdFrames": 2
+        },
+        {
+          "sheet": "jump-takeoff",
+          "frame": 3,
+          "holdFrames": 2
+        },
+        {
+          "sheet": "jump-takeoff",
+          "frame": 4,
+          "holdFrames": 2
+        },
+        {
+          "sheet": "jump-takeoff",
+          "frame": 5,
+          "holdFrames": 1
+        },
+        {
+          "sheet": "jump-takeoff",
+          "frame": 6,
+          "holdFrames": 1
+        },
+        {
+          "sheet": "jump-takeoff",
+          "frame": 7,
+          "holdFrames": 1
+        },
+        {
+          "sheet": "jump-takeoff",
+          "frame": 8,
+          "holdFrames": 1
+        },
+        {
+          "sheet": "jump-takeoff",
+          "frame": 10,
+          "holdFrames": 1
+        },
+        {
+          "sheet": "jump-takeoff",
+          "frame": 11,
+          "holdFrames": 1
+        },
+        {
+          "sheet": "jump-takeoff",
+          "frame": 9,
+          "holdFrames": 1
+        },
+        {
+          "sheet": "jump-takeoff",
+          "frame": 12,
+          "holdFrames": 1
+        },
+        {
+          "sheet": "jump-landing",
+          "frame": 2,
+          "holdFrames": 1
+        },
+        {
+          "sheet": "jump-landing",
+          "frame": 3,
+          "holdFrames": 1
+        },
+        {
+          "sheet": "jump-landing",
+          "frame": 4,
+          "holdFrames": 1
+        },
+        {
+          "sheet": "jump-landing",
+          "frame": 5,
+          "holdFrames": 2
+        },
+        {
+          "sheet": "jump-landing",
+          "frame": 6,
+          "holdFrames": 2
+        },
+        {
+          "sheet": "jump-landing",
+          "frame": 7,
+          "holdFrames": 2
+        },
+        {
+          "sheet": "jump-landing",
+          "frame": 8,
+          "holdFrames": 2
+        },
+        {
+          "sheet": "jump-landing",
+          "frame": 9,
+          "holdFrames": 2
+        },
+        {
+          "sheet": "jump-landing",
+          "frame": 9,
+          "holdFrames": 24
+        },
+        {
+          "sheet": "happy-open-arms",
+          "frame": 12,
+          "holdFrames": 2
+        },
+        {
+          "sheet": "happy-open-arms",
+          "frame": 11,
+          "holdFrames": 2
+        },
+        {
+          "sheet": "happy-open-arms",
+          "frame": 10,
+          "holdFrames": 2
+        },
+        {
+          "sheet": "happy-open-arms",
+          "frame": 9,
+          "holdFrames": 2
+        },
+        {
+          "sheet": "happy-open-arms",
+          "frame": 8,
+          "holdFrames": 2
+        },
+        {
+          "sheet": "happy-open-arms",
+          "frame": 7,
+          "holdFrames": 2
+        },
+        {
+          "sheet": "happy-open-arms",
+          "frame": 6,
+          "holdFrames": 2
+        },
+        {
+          "sheet": "happy-open-arms",
+          "frame": 5,
+          "holdFrames": 2
+        },
+        {
+          "sheet": "happy-open-arms",
+          "frame": 4,
+          "holdFrames": 2
+        },
+        {
+          "sheet": "happy-open-arms",
+          "frame": 3,
+          "holdFrames": 2
+        },
+        {
+          "sheet": "happy-open-arms",
+          "frame": 2,
+          "holdFrames": 2
+        },
+        {
+          "sheet": "happy-open-arms",
+          "frame": 1,
+          "holdFrames": 2
+        }
+      ],
+      "airborneShoeClearancePx": {
+        "jump-takeoff": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          3,
+          13,
+          26,
+          38,
+          44,
+          44,
+          34
+        ],
+        "jump-landing": [
+          0,
+          15,
+          6,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "poster": {
+        "sheet": "jump-takeoff",
+        "frame": 10
+      },
+      "phases": [
+        "anticipation",
+        "takeoff",
+        "airborne-open-arms",
+        "descent",
+        "landing-compression",
+        "standing-smile",
+        "return"
+      ],
+      "returnDrawingFps": 12
+    }
+  ]
+}

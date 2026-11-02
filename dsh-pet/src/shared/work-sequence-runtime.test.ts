@@ -21,6 +21,7 @@ function sprite() {
     S: {
       ...sequence,
       ...pickers,
+      isNoMirrorAnimation: () => false,
       WORK_STATUS_INDEX: { thinking: 0, working: 1, result: 2, waiting: 3, success: 4, error: 5 },
     },
   });
@@ -76,6 +77,32 @@ function sprite() {
   });
   return { value, history };
 }
+
+test('desktop greeting acknowledges once, follows task updates and leaves failures to their own tier', () => {
+  const { value: s, history } = sprite();
+  s.animations.workSequence.introOnly = true;
+  s.animations.workSequence.enterText = '收到任务，马上开始！';
+  s.animations.workSequence.exit = 'idle';
+  s.playAmbient({ name: 'idle', rest: true, label: '待机' });
+  assert.equal(s.workPhase, 'closed');
+  history.length = 0;
+  s.onWorkTick({ state: 'thinking', task: '第一步' }, 1);
+  s.onWorkTick({ state: 'working', task: '第二步' }, 2);
+  assert.deepEqual(history, ['enter']);
+  assert.equal(s.workPhase, 'opening');
+  assert.equal(s.workText, '第二步');
+  s.handleEnded();
+  assert.equal(s.workPhase, 'open');
+  assert.ok(['typing', 'thinking'].includes(s.anim));
+  s.onWorkTick({ state: 'result', task: '第三步' }, 3);
+  s.onWorkTick({ state: 'working', task: '第四步' }, 4);
+  assert.equal(history.filter((name) => name === 'enter').length, 1);
+  s.onWorkTick({ state: 'error' }, 5);
+  assert.equal(s.anim, 'error');
+  assert.equal(history.includes('exit'), false);
+  s.onWorkTick({ state: 'thinking', task: '下一个任务' }, 6);
+  assert.equal(s.anim, 'enter');
+});
 
 test('desktop ticks and ended form enter → work variations → exit → idle', () => {
   const { value: s, history } = sprite();

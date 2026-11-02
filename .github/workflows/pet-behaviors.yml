@@ -39,4 +39,5 @@ jobs:
           src/shared/ambient.test.ts src/shared/ambient-runtime.test.ts
           src/shared/outfits.test.ts src/shared/menu-dedup.test.ts
           src/host/animation-extensions.test.ts src/host/outfit-switch.test.ts
+          src/host/bundled-pets.test.ts
           src/client/pet/card/animation-flow.test.ts

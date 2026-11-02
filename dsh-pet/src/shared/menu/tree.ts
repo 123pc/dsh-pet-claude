@@ -138,7 +138,9 @@ export function buildMenuTree(animations: Animations): MenuNode[] {
   const sequence = animations.workSequence;
   // 只整理既有可点播集合，不把未注册素材加入菜单或改变宿主点播校验。
   const office = sequence
-    ? [sequence.enter, ...sequence.loops, sequence.exit].filter((name) => registered.has(name))
+    ? (sequence.introOnly ? [sequence.enter] : [sequence.enter, ...sequence.loops, sequence.exit]).filter((name) =>
+        registered.has(name),
+      )
     : [];
   const officeNames = new Set(office);
   const classified = new Set([...cats.flatMap((c) => c.actions), ...office]);

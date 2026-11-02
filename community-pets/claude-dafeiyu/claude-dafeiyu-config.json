@@ -191,6 +191,15 @@
         "actions": [
           "待机呼吸休闲"
         ]
+      },
+      {
+        "id": "新动作",
+        "weight": 1,
+        "actions": [
+          "抱文件认真敬礼",
+          "转身回眸·发梢随风",
+          "跳起后张臂"
+        ]
       }
     ],
     "events": {
@@ -419,8 +428,41 @@
               "name": "超大伸懒腰"
             }
           ]
+        },
+        {
+          "id": "happy-open-arms",
+          "label": "开心啦，跳起张臂",
+          "weight": 0.5,
+          "steps": [
+            {
+              "name": "跳起后张臂"
+            }
+          ]
+        },
+        {
+          "id": "breeze-lookback",
+          "label": "吹吹风，回头看看",
+          "weight": 1,
+          "steps": [
+            {
+              "name": "转身回眸·发梢随风"
+            },
+            {
+              "name": "悠闲哼歌"
+            }
+          ]
         }
       ]
+    },
+    "workSequence": {
+      "enter": "抱文件认真敬礼",
+      "loops": [
+        "工作状态-忙碌点按",
+        "工作状态-思考冒泡"
+      ],
+      "exit": "安静站立·眨眼呼吸",
+      "introOnly": true,
+      "enterText": "收到任务，马上开始！"
     }
   },
   "animationWeights": {

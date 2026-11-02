@@ -20,10 +20,10 @@ MEDIA = ROOT / 'docs/media'
 FPS = 8
 
 
-def frames(name):
+def frames(name, fps=FPS):
     raw = subprocess.run([
         imageio_ffmpeg.get_ffmpeg_exe(), '-v', 'error', '-c:v', 'libvpx-vp9',
-        '-i', str(PACK / name), '-vf', f'fps={FPS}', '-f', 'rawvideo',
+        '-i', str(PACK / name), '-vf', f'fps={fps}', '-f', 'rawvideo',
         '-pix_fmt', 'rgba', 'pipe:1',
     ], check=True, capture_output=True).stdout
     stride = 640 * 360 * 4
@@ -31,7 +31,7 @@ def frames(name):
     return [Image.frombytes('RGBA', (640, 360), raw[i:i+stride]) for i in range(0, len(raw), stride)]
 
 
-def make_gif(images, output, size=(336, 304)):
+def make_gif(images, output, size=(336, 304), fps=FPS):
     """Keep a fixed crop, scale and palette throughout the original animation."""
     bounds = [frame.getchannel('A').getbbox() for frame in images]
     assert all(bounds), output
@@ -51,7 +51,7 @@ def make_gif(images, output, size=(336, 304)):
     quantized = [im.quantize(palette=palette, dither=Image.Dither.NONE) for im in rendered]
     output.parent.mkdir(parents=True, exist_ok=True)
     quantized[0].save(output, save_all=True, append_images=quantized[1:],
-                      duration=[120 if i % 2 == 0 else 130 for i in range(len(quantized))],
+                      duration=[(120 if i%2==0 else 130) if fps==8 else round((i+1)*100/fps)*10-round(i*100/fps)*10 for i in range(len(quantized))],
                       loop=0, optimize=True, disposal=1)
 
 

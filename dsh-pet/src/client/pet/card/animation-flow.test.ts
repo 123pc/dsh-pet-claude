@@ -58,6 +58,7 @@ function setup(t: TestContext, office = false, legacy = false) {
     delete animations.workSequence;
   }
   const history: Array<{ name: string; once: boolean }> = [];
+  let introText: string | null = null;
   const card = {
     animRef: { current: 'idle' },
     facingRef: { current: 'left' },
@@ -80,6 +81,11 @@ function setup(t: TestContext, office = false, legacy = false) {
   };
   let flow: AnimationFlow;
   const hub = {
+    bubbles: {
+      updateWorkIntro: (text: string | null) => {
+        introText = text;
+      },
+    },
     card,
     cfg: () => ({
       id: 'test',
@@ -118,6 +124,7 @@ function setup(t: TestContext, office = false, legacy = false) {
     animations,
     card,
     history,
+    intro: () => introText,
     get flow() {
       return flow;
     },
@@ -135,6 +142,32 @@ function setup(t: TestContext, office = false, legacy = false) {
     cleared: () => cleared,
   };
 }
+
+test('browser greeting shows its text only during entry, then resumes the current work tier', (t) => {
+  const f = setup(t);
+  f.animations.workSequence!.introOnly = true;
+  f.animations.workSequence!.enterText = '收到任务，马上开始！';
+  f.animations.workSequence!.exit = 'idle';
+  f.flow.tickAmbient();
+  f.render({ state: 'thinking', task: '起步' });
+  assert.equal(f.flow.stepWorkSequence('thinking'), true);
+  assert.equal(f.intro(), '收到任务，马上开始！');
+  f.render({ state: 'working', task: '第二步' });
+  f.flow.stepWorkSequence('working');
+  assert.equal(f.history.filter((item) => item.name === 'enter').length, 1);
+  f.flow.applyEndedCue({ kind: 'random' });
+  assert.equal(f.intro(), null);
+  assert.ok(['typing', 'thinking'].includes(f.card.animRef.current));
+  f.flow.stepWorkSequence('working');
+  assert.equal(f.history.filter((item) => item.name === 'enter').length, 1);
+  f.flow.stepWorkSequence('error');
+  assert.equal(f.intro(), null);
+  assert.equal(
+    f.history.some((item) => item.name === 'exit'),
+    false,
+  );
+  f.dispose();
+});
 
 test('browser independent clock interrupts looping idle, completes one chain, then rests', (t) => {
   const f = setup(t);

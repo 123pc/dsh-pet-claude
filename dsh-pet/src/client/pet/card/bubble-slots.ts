@@ -134,6 +134,8 @@ export interface BubbleSlots {
   clearWhisper(): void;
   /** 更新工作气泡文本，显隐不动。 */
   updateWorkText(text: string | null): void;
+  /** 临时显示接单文案；清除后恢复最近一次真实工作详情。 */
+  updateWorkIntro?(text: string | null): void;
   /** 点亮工作气泡；terminal 决定 10s 后自动收起，非终态常驻。 */
   lightWork(terminal: boolean): void;
   /** 收起工作气泡但保留文本。 */
@@ -170,6 +172,7 @@ export function createBubbleSlots(rt: BubbleSlotsRuntime, components: BubbleComp
     // 工作状态气泡：显隐与文本。
     const [workOn, setWorkOn] = useState(false);
     const [workText, setWorkText] = useState<string | null>(null);
+    const [workIntro, setWorkIntro] = useState<string | null>(null);
     const workTimerRef = useRef<number | null>(null);
     // 语音播报状态：只在手动触发的那一句上有值，气泡据此显示转圈 / 喇叭
     const [voiceState, setVoiceState] = useState<VoiceState>('idle');
@@ -240,13 +243,15 @@ export function createBubbleSlots(rt: BubbleSlotsRuntime, components: BubbleComp
     const resetWork = () => {
       hideWork();
       setWorkText(null);
+      setWorkIntro(null);
     };
 
     const node = (): ReactNode => {
+      const visibleWorkText = workIntro ?? workText;
       const slot = decideBubbleSlot({
         workTerminal: input.workTerminal,
         workOn,
-        workText,
+        workText: visibleWorkText,
         workStatusEnabled: input.workStatusEnabled,
         whisperOn,
         whisperText,
@@ -274,7 +279,7 @@ export function createBubbleSlots(rt: BubbleSlotsRuntime, components: BubbleComp
       }
       // 终态与非终态共用同一个组件，差别只在停留时长与优先级。
       if (slot === 'work' || slot === 'work-terminal') {
-        return workText === null ? null : h(WhisperBubble, { text: workText, on: workOn });
+        return visibleWorkText === null ? null : h(WhisperBubble, { text: visibleWorkText, on: workOn });
       }
       return null;
     };
@@ -289,6 +294,7 @@ export function createBubbleSlots(rt: BubbleSlotsRuntime, components: BubbleComp
       showBalance,
       showWhisper,
       updateWorkText: setWorkText,
+      updateWorkIntro: setWorkIntro,
     };
   };
 }

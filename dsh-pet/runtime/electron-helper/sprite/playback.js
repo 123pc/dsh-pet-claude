@@ -242,6 +242,7 @@ Object.assign(PetSprite.prototype, {
       (this.workPhase !== 'closed' || S.isWorkSequenceAnim(animations.workSequence, this.anim))
     ) {
       if (this.stepWorkSequence(this.workState, true)) return;
+      if (animations.workSequence.introOnly && this.resumeWorkStatusAnim()) return;
       if (animations.idle.length) this.playOnce(S.pick(animations.idle));
       return;
     }
@@ -295,8 +296,13 @@ Object.assign(PetSprite.prototype, {
     if (!state || state === 'success' || state === 'error') return false;
     if (this.animations.workSequence) {
       // 入场被用户互动打断时重播入场；已打开电脑则直接回到办公小动作。
-      if (this.workPhase === 'opening' && this.anim !== this.animations.workSequence.enter) this.workPhase = 'closed';
-      return this.stepWorkSequence(state);
+      if (
+        !this.animations.workSequence.introOnly &&
+        this.workPhase === 'opening' &&
+        this.anim !== this.animations.workSequence.enter
+      )
+        this.workPhase = 'closed';
+      if (this.stepWorkSequence(state)) return true;
     }
     const pool = this.animations.events?.workStatus;
     if (!pool || pool.length === 0) return false;
@@ -324,6 +330,7 @@ Object.assign(PetSprite.prototype, {
       ended,
     );
     this.workPhase = step.phase;
+    this.renderBubble();
     if (step.name) {
       this.stopMove();
       console.log('[dsh-pet] work-sequence pet=' + this.pet.id + ' phase=' + step.phase + ' anim=' + step.name);
@@ -373,7 +380,7 @@ Object.assign(PetSprite.prototype, {
     try {
       this.stopMove();
       const office = this.animations.workSequence;
-      if (office) {
+      if (office && !office.introOnly) {
         // 活动没显式收起道具时，先播放办公退出段，避免过渡阶段永久阻塞时钟。
         if (cue.rest && (this.workPhase === 'opening' || this.workPhase === 'open')) {
           if (this.stepWorkSequence(this.workState, true)) return;

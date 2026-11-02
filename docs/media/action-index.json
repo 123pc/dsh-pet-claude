@@ -1,6 +1,6 @@
 {
-  "count": 119,
-  "showcaseSingles": 41,
+  "count": 122,
+  "showcaseSingles": 44,
   "chains": [
     {
       "id": "sleepy",
@@ -1127,6 +1127,33 @@
       "gif": "media/actions/a119.gif",
       "durationMs": 7500,
       "bytes": 1014504
+    },
+    {
+      "name": "抱文件认真敬礼",
+      "group": "新动作",
+      "source": "animation/抱文件认真敬礼.webm",
+      "sourceSha256": "91251ef5cb5d16e1ea599e95e0cd693dbaf7851c2f9d96057726959d2b50942f",
+      "gif": "media/actions/a120.gif",
+      "durationMs": 2750,
+      "bytes": 368699
+    },
+    {
+      "name": "转身回眸·发梢随风",
+      "group": "新动作",
+      "source": "animation/转身回眸·发梢随风.webm",
+      "sourceSha256": "2383cc49f56dd1433d028d6d870d230451898d452f8d68aa1cf853bc56204951",
+      "gif": "media/actions/a121.gif",
+      "durationMs": 4500,
+      "bytes": 500340
+    },
+    {
+      "name": "跳起后张臂",
+      "group": "新动作",
+      "source": "animation/跳起后张臂.webm",
+      "sourceSha256": "e907ce758ec689a70b46d30e19a7d95a0adfc519e9fa0b65988b1abda0d05275",
+      "gif": "media/actions/a122.gif",
+      "durationMs": 3210,
+      "bytes": 1073193
     }
   ]
 }

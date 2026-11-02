@@ -146,7 +146,10 @@ export function createHostSetup(ctx: HostSetupContext): HostSetup {
   migrateUserConfig(configPaths, (msg) => log.info('[dsh-pet] ' + msg));
   try {
     const seeded = ensureBundledPets(configPaths, join(PACKAGE_ROOT, 'assets', 'bundled-claude'));
-    if (seeded.added) log.info(`[dsh-pet-claude] 内置角色已准备：新增 ${seeded.added}，保留 ${seeded.preserved}`);
+    if (seeded.added || seeded.updated)
+      log.info(
+        `[dsh-pet-claude] 内置角色已准备：新增 ${seeded.added}，更新 ${seeded.updated ?? 0}，保留 ${seeded.preserved}`,
+      );
   } catch (error) {
     log.warn('[dsh-pet-claude] 内置角色初始化失败：' + String(error));
   }

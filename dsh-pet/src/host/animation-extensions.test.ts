@@ -63,6 +63,17 @@ test('work sequences cannot introduce unregistered animations or non-animation p
   }
 });
 
+test('greeting metadata is optional and bounded without weakening animation registration', () => {
+  const greeting = { ...sequence, introOnly: true, enterText: '收到任务，马上开始！' };
+  assert.equal(sanitizeAnimationExtensions({ ...legacy, workSequence: greeting }).workSequence, greeting);
+  for (const bad of [
+    { ...greeting, introOnly: 'true' },
+    { ...greeting, enterText: ' ' },
+    { ...greeting, enterText: 'x'.repeat(81) },
+  ])
+    assert.equal(sanitizeAnimationExtensions({ ...legacy, workSequence: bad }).workSequence, undefined);
+});
+
 test('schedule bounds reject non-finite weights, duplicates, excessive repeats and invalid windows', () => {
   const badValues = [
     { ...ambient, windowSec: 0 },

@@ -27,6 +27,9 @@ const record = (value: unknown): value is Record<string, unknown> =>
 function workSequenceValid(value: unknown, names: Set<string>): boolean {
   if (!record(value)) return false;
   return (
+    (value.introOnly === undefined || typeof value.introOnly === 'boolean') &&
+    (value.enterText === undefined ||
+      (typeof value.enterText === 'string' && value.enterText.trim().length > 0 && value.enterText.length <= 80)) &&
     typeof value.enter === 'string' &&
     names.has(value.enter) &&
     typeof value.exit === 'string' &&

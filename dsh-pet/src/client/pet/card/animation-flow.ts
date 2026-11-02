@@ -103,7 +103,7 @@ export function createAnimationFlow(rt: AnimationFlowRuntime) {
       try {
         h.stopMotion();
         const office = h.anims().workSequence;
-        if (office) {
+        if (office && !office.introOnly) {
           // 活动没显式收起道具时，先播放办公退出段，避免过渡阶段永久阻塞时钟。
           if (cue.rest && (state.phase === 'opening' || state.phase === 'open')) {
             if (stepWorkSequence(workState(), true)) return;
@@ -136,6 +136,7 @@ export function createAnimationFlow(rt: AnimationFlowRuntime) {
         ended,
       );
       state.phase = step.phase;
+      h.bubbles.updateWorkIntro?.(step.phase === 'opening' ? (h.anims().workSequence?.enterText ?? null) : null);
       if (step.handled) cancelAmbient();
       if (step.name) {
         h.stopMotion();
@@ -178,7 +179,7 @@ export function createAnimationFlow(rt: AnimationFlowRuntime) {
       if (hub.ownAnim.isFrozen()) return false;
       const ws = workStatusRef.current;
       if (!ws || !ws.state || ws.state === 'success' || ws.state === 'error') return false;
-      if (hub.anims().workSequence) return stepWorkSequence(ws.state);
+      if (hub.anims().workSequence && stepWorkSequence(ws.state)) return true;
       const pool = hub.anims().events?.workStatus;
       if (!pool || pool.length === 0) return false;
       const idx = WORK_STATUS_INDEX[ws.state];
@@ -246,6 +247,7 @@ export function createAnimationFlow(rt: AnimationFlowRuntime) {
       const office = hub.anims().workSequence;
       if (office && (state.phase !== 'closed' || isWorkSequenceAnim(office, card.animRef.current))) {
         if (stepWorkSequence(workState(), true)) return;
+        if (office.introOnly && resumeWorkStatusAnim()) return;
         if (state.director) playAmbient({ name: hub.anims().idle[0], rest: true, label: '安静待机' });
         else card.actions.play(pick(hub.anims().idle), { replay: true });
         return;

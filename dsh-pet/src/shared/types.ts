@@ -91,6 +91,10 @@ export interface WorkSequence {
   enter: string;
   loops: string[];
   exit: string;
+  /** 仅播放一次接单开场，随后交回当前工作档位；不接管收尾。 */
+  introOnly?: boolean;
+  /** 入场片段播放期间显示的接单文案，不覆盖真实任务详情。 */
+  enterText?: string;
 }
 
 /** 已安装形态的原生换装菜单候选，由宿主派生，不持久化。 */

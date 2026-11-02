@@ -11,6 +11,27 @@ function names(tree: MenuNode[]): string[] {
   return tree.flatMap((n) => ('children' in n ? names(n.children) : n.anim ? [n.anim] : []));
 }
 
+test('greeting-only sequence adds one office entry without moving idle or duplicating work slots', () => {
+  const a: Animations = {
+    idle: ['idle'],
+    turn: [],
+    drag: [],
+    clicks: [],
+    moves: { default: {}, actions: [] },
+    categories: [{ id: 'new', weight: 1, actions: ['salute', 'dance'] }],
+    events: { workStatus: ['think', 'type', 'done', 'error'] },
+    workSequence: { enter: 'salute', loops: ['think', 'type'], exit: 'idle', introOnly: true },
+  };
+  const tree = buildMenuTree(a);
+  const all = names(tree);
+  assert.equal(all.length, new Set(all).size);
+  assert.deepEqual(new Set(all), new Set(['idle', 'salute', 'dance', 'think', 'type', 'done', 'error']));
+  const branches = tree.flatMap((node) => ('children' in node ? node.children : []));
+  const office = branches.find((node) => node.label === '办公动作');
+  assert.ok(office && 'children' in office);
+  assert.deepEqual(names(office.children), ['salute']);
+});
+
 test('duplicates across categories and event slots merge; empty groups disappear', () => {
   const a: Animations = {
     idle: ['idle', 'idle'],

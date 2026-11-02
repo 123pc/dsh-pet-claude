@@ -1,10 +1,13 @@
 {
-  "version": "0.7.1-outfits",
+  "version": "0.8.0-reference-actions",
   "files": [
     {
       "source": "claude-dafeiyu-config.json",
       "target": "claude-dafeiyu-config.json",
-      "sha256": "30d9ab3a53f2b1724633f772d35e0ed2ff34048dcf5716239f5714d216bd3abd"
+      "sha256": "1553ce0df10cfa265c6d8bd90405201f2dcb9364a815b7eed41fe1a8887f88a5",
+      "previousAnimationsSha256": [
+        "25694696cc8b401dda371565c105efb3e75da452d304d0ebb1dda74ab4aed65b"
+      ]
     },
     {
       "source": "animation/三球抛接.webm",
@@ -605,6 +608,21 @@
       "source": "lean-animation/托腮办公·轻敲键盘.webm",
       "target": "claude-dafeiyu-lean-animation/托腮办公·轻敲键盘.webm",
       "sha256": "2d9e7f05a449682f49874330281a5e453eaa8eb0ed14ebe76dbd282fd4299820"
+    },
+    {
+      "source": "animation/抱文件认真敬礼.webm",
+      "target": "claude-dafeiyu-animation/抱文件认真敬礼.webm",
+      "sha256": "91251ef5cb5d16e1ea599e95e0cd693dbaf7851c2f9d96057726959d2b50942f"
+    },
+    {
+      "source": "animation/转身回眸·发梢随风.webm",
+      "target": "claude-dafeiyu-animation/转身回眸·发梢随风.webm",
+      "sha256": "2383cc49f56dd1433d028d6d870d230451898d452f8d68aa1cf853bc56204951"
+    },
+    {
+      "source": "animation/跳起后张臂.webm",
+      "target": "claude-dafeiyu-animation/跳起后张臂.webm",
+      "sha256": "e907ce758ec689a70b46d30e19a7d95a0adfc519e9fa0b65988b1abda0d05275"
     }
   ]
 }

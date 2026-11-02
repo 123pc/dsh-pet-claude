@@ -1,0 +1,391 @@
+{
+  "method": "imagegen-whole-character-keyframes",
+  "fps": 24,
+  "audio": false,
+  "actions": [
+    {
+      "id": "salute",
+      "name": "抱文件认真敬礼",
+      "source": "animation/抱文件认真敬礼.webm",
+      "frames": 66,
+      "durationSec": 2.75,
+      "uniqueDrawings": 12,
+      "sha256": "91251ef5cb5d16e1ea599e95e0cd693dbaf7851c2f9d96057726959d2b50942f",
+      "gif": "docs/media/reference-actions/salute.gif",
+      "timeline": [
+        {
+          "sheet": "salute",
+          "frame": 1,
+          "holdFrames": 6
+        },
+        {
+          "sheet": "salute",
+          "frame": 2,
+          "holdFrames": 3
+        },
+        {
+          "sheet": "salute",
+          "frame": 3,
+          "holdFrames": 3
+        },
+        {
+          "sheet": "salute",
+          "frame": 4,
+          "holdFrames": 3
+        },
+        {
+          "sheet": "salute",
+          "frame": 5,
+          "holdFrames": 3
+        },
+        {
+          "sheet": "salute",
+          "frame": 6,
+          "holdFrames": 3
+        },
+        {
+          "sheet": "salute",
+          "frame": 7,
+          "holdFrames": 18
+        },
+        {
+          "sheet": "salute",
+          "frame": 8,
+          "holdFrames": 12
+        },
+        {
+          "sheet": "salute",
+          "frame": 9,
+          "holdFrames": 3
+        },
+        {
+          "sheet": "salute",
+          "frame": 10,
+          "holdFrames": 3
+        },
+        {
+          "sheet": "salute",
+          "frame": 11,
+          "holdFrames": 3
+        },
+        {
+          "sheet": "salute",
+          "frame": 12,
+          "holdFrames": 6
+        }
+      ]
+    },
+    {
+      "id": "breeze",
+      "name": "转身回眸·发梢随风",
+      "source": "animation/转身回眸·发梢随风.webm",
+      "frames": 108,
+      "durationSec": 4.5,
+      "uniqueDrawings": 8,
+      "sha256": "2383cc49f56dd1433d028d6d870d230451898d452f8d68aa1cf853bc56204951",
+      "gif": "docs/media/reference-actions/breeze.gif",
+      "timeline": [
+        {
+          "sheet": "breeze-lookback",
+          "frame": 1,
+          "holdFrames": 6
+        },
+        {
+          "sheet": "breeze-lookback",
+          "frame": 2,
+          "holdFrames": 6
+        },
+        {
+          "sheet": "breeze-lookback",
+          "frame": 3,
+          "holdFrames": 6
+        },
+        {
+          "sheet": "breeze-lookback",
+          "frame": 4,
+          "holdFrames": 6
+        },
+        {
+          "sheet": "breeze-lookback",
+          "frame": 5,
+          "holdFrames": 6
+        },
+        {
+          "sheet": "breeze-lookback",
+          "frame": 6,
+          "holdFrames": 6
+        },
+        {
+          "sheet": "breeze-lookback",
+          "frame": 7,
+          "holdFrames": 6
+        },
+        {
+          "sheet": "breeze-lookback",
+          "frame": 8,
+          "holdFrames": 24
+        },
+        {
+          "sheet": "breeze-lookback",
+          "frame": 7,
+          "holdFrames": 6
+        },
+        {
+          "sheet": "breeze-lookback",
+          "frame": 6,
+          "holdFrames": 6
+        },
+        {
+          "sheet": "breeze-lookback",
+          "frame": 5,
+          "holdFrames": 6
+        },
+        {
+          "sheet": "breeze-lookback",
+          "frame": 4,
+          "holdFrames": 6
+        },
+        {
+          "sheet": "breeze-lookback",
+          "frame": 3,
+          "holdFrames": 6
+        },
+        {
+          "sheet": "breeze-lookback",
+          "frame": 2,
+          "holdFrames": 6
+        },
+        {
+          "sheet": "breeze-lookback",
+          "frame": 1,
+          "holdFrames": 6
+        }
+      ]
+    },
+    {
+      "id": "happy",
+      "name": "跳起后张臂",
+      "source": "animation/跳起后张臂.webm",
+      "revision": 2,
+      "fps": 24,
+      "drawingFps": 24,
+      "frames": 77,
+      "durationSec": 3.2083333333333335,
+      "uniqueDrawings": 32,
+      "finishHoldSec": 1,
+      "sha256": "e907ce758ec689a70b46d30e19a7d95a0adfc519e9fa0b65988b1abda0d05275",
+      "gif": "docs/media/reference-actions/happy.gif",
+      "timeline": [
+        {
+          "sheet": "jump-takeoff",
+          "frame": 1,
+          "holdFrames": 2
+        },
+        {
+          "sheet": "jump-takeoff",
+          "frame": 2,
+          "holdFrames": 2
+        },
+        {
+          "sheet": "jump-takeoff",
+          "frame": 3,
+          "holdFrames": 2
+        },
+        {
+          "sheet": "jump-takeoff",
+          "frame": 4,
+          "holdFrames": 2
+        },
+        {
+          "sheet": "jump-takeoff",
+          "frame": 5,
+          "holdFrames": 1
+        },
+        {
+          "sheet": "jump-takeoff",
+          "frame": 6,
+          "holdFrames": 1
+        },
+        {
+          "sheet": "jump-takeoff",
+          "frame": 7,
+          "holdFrames": 1
+        },
+        {
+          "sheet": "jump-takeoff",
+          "frame": 8,
+          "holdFrames": 1
+        },
+        {
+          "sheet": "jump-takeoff",
+          "frame": 10,
+          "holdFrames": 1
+        },
+        {
+          "sheet": "jump-takeoff",
+          "frame": 11,
+          "holdFrames": 1
+        },
+        {
+          "sheet": "jump-takeoff",
+          "frame": 9,
+          "holdFrames": 1
+        },
+        {
+          "sheet": "jump-takeoff",
+          "frame": 12,
+          "holdFrames": 1
+        },
+        {
+          "sheet": "jump-landing",
+          "frame": 2,
+          "holdFrames": 1
+        },
+        {
+          "sheet": "jump-landing",
+          "frame": 3,
+          "holdFrames": 1
+        },
+        {
+          "sheet": "jump-landing",
+          "frame": 4,
+          "holdFrames": 1
+        },
+        {
+          "sheet": "jump-landing",
+          "frame": 5,
+          "holdFrames": 2
+        },
+        {
+          "sheet": "jump-landing",
+          "frame": 6,
+          "holdFrames": 2
+        },
+        {
+          "sheet": "jump-landing",
+          "frame": 7,
+          "holdFrames": 2
+        },
+        {
+          "sheet": "jump-landing",
+          "frame": 8,
+          "holdFrames": 2
+        },
+        {
+          "sheet": "jump-landing",
+          "frame": 9,
+          "holdFrames": 2
+        },
+        {
+          "sheet": "jump-landing",
+          "frame": 9,
+          "holdFrames": 24
+        },
+        {
+          "sheet": "happy-open-arms",
+          "frame": 12,
+          "holdFrames": 2
+        },
+        {
+          "sheet": "happy-open-arms",
+          "frame": 11,
+          "holdFrames": 2
+        },
+        {
+          "sheet": "happy-open-arms",
+          "frame": 10,
+          "holdFrames": 2
+        },
+        {
+          "sheet": "happy-open-arms",
+          "frame": 9,
+          "holdFrames": 2
+        },
+        {
+          "sheet": "happy-open-arms",
+          "frame": 8,
+          "holdFrames": 2
+        },
+        {
+          "sheet": "happy-open-arms",
+          "frame": 7,
+          "holdFrames": 2
+        },
+        {
+          "sheet": "happy-open-arms",
+          "frame": 6,
+          "holdFrames": 2
+        },
+        {
+          "sheet": "happy-open-arms",
+          "frame": 5,
+          "holdFrames": 2
+        },
+        {
+          "sheet": "happy-open-arms",
+          "frame": 4,
+          "holdFrames": 2
+        },
+        {
+          "sheet": "happy-open-arms",
+          "frame": 3,
+          "holdFrames": 2
+        },
+        {
+          "sheet": "happy-open-arms",
+          "frame": 2,
+          "holdFrames": 2
+        },
+        {
+          "sheet": "happy-open-arms",
+          "frame": 1,
+          "holdFrames": 2
+        }
+      ],
+      "airborneShoeClearancePx": {
+        "jump-takeoff": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          3,
+          13,
+          26,
+          38,
+          44,
+          44,
+          34
+        ],
+        "jump-landing": [
+          0,
+          15,
+          6,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "poster": {
+        "sheet": "jump-takeoff",
+        "frame": 10
+      },
+      "phases": [
+        "anticipation",
+        "takeoff",
+        "airborne-open-arms",
+        "descent",
+        "landing-compression",
+        "standing-smile",
+        "return"
+      ],
+      "returnDrawingFps": 12
+    }
+  ]
+}

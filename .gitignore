@@ -52,3 +52,7 @@ dsh-pet/dist-app/
 .DS_Store
 Thumbs.db
 desktop.ini
+
+# Reproducible animation build previews, not runtime assets.
+community-pets/claude-dafeiyu/preview/reference-actions/
+tools/animation/__pycache__/

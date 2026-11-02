@@ -54,7 +54,8 @@ Object.assign(PetSprite.prototype, {
     // 终态任务不让位：完成/失败气泡只活 10s，被顶掉就彻底看不到；非终态气泡常驻，让位零损失。
     // 工作气泡与碎碎念同款样式（宽度自适应 + 自动换行）；配图标记交给 CSS（带图时取消 min-width）。
     // 图片 URL 与视频同规则：传 BASE 前缀（桌面是 file:// 页面，必须绝对地址），素材根同理。
-    const workOn = !!(this.workOn && this.workText);
+    const workText = (this.workPhase === 'opening' && this.animations.workSequence?.enterText) || this.workText;
+    const workOn = !!(this.workOn && workText);
     const whisperOn = !!(this.whisperOn && this.whisperView);
     const balanceOn = !!(this.bubbleOn && this.balanceView);
     const workTerminal = this.workState === 'success' || this.workState === 'error';
@@ -91,7 +92,7 @@ Object.assign(PetSprite.prototype, {
     if (slot === 'work') {
       const line = document.createElement('div');
       line.className = 'pet-bub-row';
-      line.textContent = this.workText;
+      line.textContent = workText;
       this.bubble.appendChild(line);
     } else if (slot === 'whisper') {
       // 配图（shared 生成的 <img> + 共用样式）：先看图再读话

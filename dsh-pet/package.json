@@ -1,6 +1,6 @@
 {
   "name": "dsh-pet",
-  "version": "0.3.8-claude.2",
+  "version": "0.3.8-claude.3",
   "description": "dsh-pet-claude：Claude 大肥鱼桌宠，站立、托腮与办公陪伴。基于 dsh-pet 独立维护。",
   "icon": "assets/claude-icon.png",
   "keywords": [

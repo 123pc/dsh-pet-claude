@@ -16,6 +16,8 @@
 
 从同一发布页下载 `dsh-pet-claude.tgz`。这个插件包包含两种形态与 119 段动画，首次启动自动准备角色，不需要另行运行 PowerShell 安装器。单独安装角色包不能为原版引擎增加动作链与办公衔接。
 
+当前源码包含 122 段动画，新增抱文件敬礼、转身回眸和跳起后张臂；0.7.2 发布包仍为 119 段，源码新增动作待后续版本发布。
+
 Web 模式（Node.js 22.12+）：
 
 ```powershell
@@ -24,9 +26,9 @@ dsh plugin --profile web add file:D:/Downloads/dsh-pet-claude.tgz
 
 桌面 DSH 使用应用内插件管理安装本地插件包，或使用桌面应用自带的 CLI 和对应 profile；不要误装到 `web` profile。
 
-启动 DSH 后，新目录默认显示站立形态；右键 → 换装，可以选择「Claude-大肥鱼-站立」和「Claude-大肥鱼-托腮」。已有用户的配置和视频保持原样，新形态可从原桌宠的换装菜单选择。新角色默认关闭自动碎碎念和余额查询，可在设置中自行开启。
+启动 DSH 后，新目录默认显示站立形态；右键 → 换装，可以选择「Claude-大肥鱼-站立」和「Claude-大肥鱼-托腮」。已有用户的偏好、自定义动作和视频会保留，新形态可从原桌宠的换装菜单选择。新角色默认关闭自动碎碎念和余额查询，可在设置中自行开启。
 
-默认素材目录为 `%USERPROFILE%\.dsh\dsh-pet\pet`；设置了 `DSH_HOME` 时改用该目录下的 `dsh-pet/pet`。升级只补充缺失文件，不覆盖已有配置、偏好或用户修改的视频。发布页仍保留角色 ZIP，供手动管理和卸载使用。
+默认素材目录为 `%USERPROFILE%\.dsh\dsh-pet\pet`；设置了 `DSH_HOME` 时改用该目录下的 `dsh-pet/pet`。源码版升级会补充缺失视频；若站立形态的动作定义仍与 0.7.2 官方模板一致，会先在同目录生成 `.before-bundled-<哈希>.bak` 原文件备份，再仅更新 `animations`。尺寸、位置、显示模式、开关和其它偏好均保留。自定义过动作定义的配置不自动修改，可将新动作名称手动加入自己的分类；用户修改过的视频也不替换。发布页仍保留角色 ZIP，供手动管理和卸载使用。
 
 卸载两种 Claude 形态可运行角色包的 `uninstall.ps1`；它会保护用户修改与无关文件。恢复原版引擎请重新安装上游插件。
 
@@ -46,7 +48,7 @@ Windows 发行包的重建方法：在插件目录完成 `npm run prepack` 和 `
 
 ```powershell
 python tools/release/collect_notices.py
-python tools/release/build_release.py --electron '本机 Electron 解压目录' --plugin 'dsh-pet/dsh-pet-0.3.8-claude.2.tgz'
+python tools/release/build_release.py --electron '本机 Electron 解压目录' --plugin 'dsh-pet/dsh-pet-0.3.8-claude.3.tgz'
 ```
 
 Python 依赖为 Pillow 与 imageio-ffmpeg；`collect_notices.py` 下载固定提交的第三方源码，打包脚本不会下载 Electron。主图与办公动图可用 `python tools/release/build_release.py --media-only` 重建；完整动作图鉴、首页动作预览与动作链使用 `python tools/release/build_gallery.py` 从已发布视频重新生成。

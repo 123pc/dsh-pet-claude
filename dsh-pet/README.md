@@ -1,6 +1,6 @@
 # dsh-pet-claude
 
-Claude 打扮的大肥鱼桌宠，包含站立、托腮两种形态和 119 段透明动画。完整动作预览见[项目首页](https://github.com/123pc/dsh-pet-claude)。
+Claude 打扮的大肥鱼桌宠，包含站立、托腮两种形态和 123 段透明动画。完整动作预览见[项目首页](https://github.com/123pc/dsh-pet-claude)。
 
 安装本分支的预构建 TGZ 后重启 DSH，即会自动准备角色素材，不需要再下载角色 ZIP 或运行 PowerShell 安装器。新目录默认显示站立形态，右键 → **换装** 可切换托腮；新安装默认关闭自动碎碎念和余额查询，可在设置中自行开启。
 
