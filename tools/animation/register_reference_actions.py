@@ -46,7 +46,7 @@ def main():
                 'target':action['source'].replace('animation/','claude-dafeiyu-animation/',1),'sha256':action['sha256']})
         else:
             next(r for r in manifest['files'] if r['source']==action['source'])['sha256']=action['sha256']
-    manifest['version']='0.8.0-reference-actions'
+    manifest['version']='0.7.3'
     write(manifest_path,manifest)
     print(f'Registered {len(created)} new actions and task greeting; retained all 119 existing videos.')
 

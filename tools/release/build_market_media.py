@@ -14,9 +14,10 @@ groups = [
     ('02-daily.png', '站立日常', ['自然走路', '点击回应-元气挥手', '撸猫', '吃白饭', '小提琴演奏', '超大伸懒腰']),
     ('03-companion.png', '托腮陪伴', ['托腮·安静陪伴', '托腮·轻摇鲸尾', '托腮·指尖拨头发', '托腮·摇头哼歌', '托腮·眯眼小憩', '托腮·轻声回应']),
     ('04-office.png', '从拿出电脑，到收起电脑', ['托腮办公·拿出并打开电脑', '托腮办公·轻敲键盘', '托腮办公·停笔想一想', '托腮办公·揉眼伸肩', '托腮办公·收起电脑', '托腮·安静陪伴']),
+    ('05-new-actions.png', '接单敬礼 · 回眸 · 跳起张臂', ['抱文件认真敬礼', '转身回眸·发梢随风', '跳起后张臂']),
 ]
 for filename, title, names in groups:
-    canvas = Image.new('RGB', (1120, 720), '#f2eee7')
+    canvas = Image.new('RGB', (1120, 100 + 310 * ((len(names) + 2) // 3)), '#f2eee7')
     draw = ImageDraw.Draw(canvas)
     draw.text((36, 20), 'dsh-pet-claude · ' + title, font=title_font, fill='#24344c')
     for i, name in enumerate(names):
@@ -38,4 +39,4 @@ head = ImageOps.contain(head, (166, 166), Image.Resampling.LANCZOS)
 icon = Image.new('RGBA', (180, 180), '#f2eee7')
 icon.paste(head, ((180-head.width)//2, 180-head.height), head)
 icon.save(ROOT / 'dsh-pet/assets/claude-icon.png', optimize=True)
-print('Prepared 4 market images and a Claude icon from published frames.')
+print('Prepared 5 market images and a Claude icon from verified frames.')

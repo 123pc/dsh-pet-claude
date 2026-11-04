@@ -6,9 +6,9 @@
 
 ![Claude-大肥鱼-站立与Claude-大肥鱼-托腮](docs/media/hero.png)
 
-**[下载 Windows 解压即用版](https://github.com/123pc/dsh-pet-claude/releases/download/claude-v0.7.2/claude-dafeiyu-windows-x64.zip)** · [全部下载](https://github.com/123pc/dsh-pet-claude/releases) · [安装说明](docs/INSTALL.md)
+**[下载 Windows 解压即用版](https://github.com/123pc/dsh-pet-claude/releases/download/claude-v0.7.3/claude-dafeiyu-windows-x64.zip)** · [全部下载](https://github.com/123pc/dsh-pet-claude/releases) · [安装说明](docs/INSTALL.md)
 
-> 最新源码已加入接单敬礼、转身回眸和跳起后张臂。上方 0.7.2 下载包仍为此前的 119 段素材，新动作将在后续发行包提供。
+> 0.7.3 已包含接单敬礼、转身回眸和跳起后张臂，共 122 段透明动画。收到工作先敬礼并显示“收到任务，马上开始！”。
 
 ## 动作一览
 

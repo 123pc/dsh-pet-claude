@@ -117,7 +117,7 @@ def zip_tree(folder, target):
 
 
 def package(electron, plugin, out):
-    verify_pack()
+    manifest = verify_pack()
     assert (electron / 'electron.exe').is_file(), 'Pass an extracted Windows x64 Electron directory'
     assert (ROOT / 'dsh-pet/lib/app.js').is_file(), 'Run npm run prepack first'
     assert (ROOT / 'dsh-pet/runtime/electron-helper/shared-core.js').is_file()
@@ -137,7 +137,15 @@ def package(electron, plugin, out):
     package_json['main'] = 'portable.mjs'
     (app / 'package.json').write_text(json.dumps(package_json, ensure_ascii=False, indent=2), encoding='utf-8')
     shutil.copy2(ROOT / 'tools/release/portable.mjs', app / 'portable.mjs')
-    shutil.copytree(PACK, stage / 'pet-pack', ignore=shutil.ignore_patterns('__pycache__'))
+    # Distribute only declared runtime media and installer documents, never the
+    # local frame previews or source atlases used to draw the animations.
+    pet_stage = stage / 'pet-pack'
+    for name in ['manifest.json', *[item['source'] for item in manifest['files']],
+                 'install.ps1', 'uninstall.ps1', 'Pack.ps1', 'ACTIVITY-CHAINS.md',
+                 'verify.py', 'requirements.txt', 'tests/install.test.ps1']:
+        destination = pet_stage / name
+        destination.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(PACK / name, destination)
     shutil.copy2(ROOT / 'tools/release/Pack-README.md', stage / 'pet-pack/README.md')
     for name in ['Start-Claude.ps1', '启动桌宠.cmd']:
         shutil.copy2(ROOT / 'tools/release' / name, stage / name)
